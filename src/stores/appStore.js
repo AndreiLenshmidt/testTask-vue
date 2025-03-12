@@ -64,6 +64,7 @@ export const useAppStore = defineStore("appStore", () => {
     addAlbums(res);
     loadAlbums();
     clearSearch();
+    shownPictures.value = 30;
     albums.value = "";
   };
   const loadAlbums = async () => {
