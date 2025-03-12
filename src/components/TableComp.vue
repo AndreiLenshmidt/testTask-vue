@@ -1,7 +1,7 @@
 <script setup>
 import { useAppStore } from "@/stores/appStore.js";
 import { useIntersectionObserver } from "@vueuse/core";
-import { useTemplateRef } from "vue";
+import { useTemplateRef, watch } from "vue";
 import TableCeil from "@/components/TableCeil.vue";
 import Skeleton from "./Skeleton.vue";
 
@@ -9,6 +9,14 @@ const store = useAppStore();
 
 const root = useTemplateRef("root");
 const target = useTemplateRef("target");
+const tableBody = useTemplateRef("tableBody");
+
+watch(
+  () => store.albums.length === 0,
+  () => {
+    tableBody.value.scrollTo(0, 0);
+  }
+);
 
 useIntersectionObserver(
   target,
@@ -35,7 +43,10 @@ useIntersectionObserver(
         @click="store.filterHandler(item.text)"
       />
     </div>
-    <div class="overflow-hidden overflow-y-scroll max-h-[556px]">
+    <div
+      class="overflow-hidden overflow-y-scroll max-h-[556px]"
+      ref="tableBody"
+    >
       <TransitionGroup name="list" tag="ul">
         <li
           v-for="item in store.loadedPictures"
