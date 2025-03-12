@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.wrap {
+  width: 1280px;
+  margin: 0 auto;
+}
+
+@media (width < 768px) {
+  .wrap {
+    width: 752px;
+  }
+}
